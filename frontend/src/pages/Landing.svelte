@@ -1,15 +1,23 @@
 <script>
+  import landingBG from "../assets/images/landing.png";
 
-  import landingBG from "../assets/images/landing5.png";
-  import floralBG from "../assets/images/floralbg.jpg";
+  import Details from "./Details.svelte";
 
-  function showDetails() {}
+  let showDetailsPage = false;
+
+  function showDetails() {
+    showDetailsPage = !showDetailsPage;    
+  }
 </script>
-
+{#if !showDetailsPage}
 <div class="wrapper">
   <div class="left-section">
     <div class="image-container">
-      <img class="landing-image" alt="The background for the main landing page" src={landingBG} />
+      <img
+        class="landing-image"
+        alt="The background for the main landing page"
+        src={landingBG}
+      />
     </div>
   </div>
   <div class="right-section">
@@ -26,10 +34,13 @@
       <div class="location">
         <span>By Louvain Guest Farm<span class="comma">,</span> Herold</span>
       </div>
-    <button on:click={showDetails} class="btn">Meer inligting</button>
+      <button on:click={showDetails} class="btn">Meer inligting</button>
     </div>
   </div>
 </div>
+{:else if showDetailsPage}
+<Details />
+{/if}
 
 <style>
   @font-face {
@@ -47,14 +58,18 @@
     margin: 5%;
     padding: 25px 0px 25px 0px;
     height: 100%;
-    place-content: center;
-    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: azure;
     box-sizing: border-box;
   }
 
   .details-wrapper span {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     color: #ad925d;
+    user-select: none;
   }
 
   .invite span {
@@ -80,6 +95,10 @@
     padding-bottom: 25px;
   }
 
+  .comma {
+    font-family: "Times New Roman", Times, serif !important;
+  }
+
   @media (min-width: 1000px) {
     .invite span {
       font-size: 26px;
@@ -95,9 +114,7 @@
     }
   }
 
-
   .wrapper {
-    border: 1px solid red;
     display: flex;
     flex-wrap: wrap;
   }
@@ -113,10 +130,12 @@
   .btn {
     border: 1px solid #ad925d;
     color: #ad925d;
+    background-color: azure;
     cursor: pointer;
     font-family: "RoxaleStory";
     font-size: 22px;
     padding: 8px 20px 8px 20px;
+    max-width: 8em;
   }
 
   .left-section {
@@ -134,7 +153,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    background-color: #d0c6b5;
+    background-color: azure;
   }
 
   @media (max-width: 900px) {
@@ -149,14 +168,7 @@
   }
 
   .btn:hover {
-    background-color: initial;
+    background-color: azure;
     color: #ad925d;
-  }
-
-  :global(body) {
-    background-size: contain;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
   }
 </style>

@@ -14,6 +14,7 @@
     "vite": "^5.2.0"
   },
   "dependencies": {
-    "@sveltestrap/sveltestrap": "^6.2.7"
+    "@sveltestrap/sveltestrap": "^6.2.7",
+    "svelte-spa-router": "^4.0.1"
   }
 }

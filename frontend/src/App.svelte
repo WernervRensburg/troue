@@ -1,8 +1,9 @@
 <script>
-  import Landing from "./pages/Landing.svelte";
-  import Details from "./pages/Details.svelte";
+  import Router from "svelte-spa-router";
+  import routes from "./routes";
+
 </script>
 
 <main>
-  <Landing />
+  <Router {routes} />
 </main>
