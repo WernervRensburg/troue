@@ -467,6 +467,11 @@ source-map-js@^1.0.1, source-map-js@^1.2.0:
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.2.0.tgz#16b809c162517b5b8c3e7dcd315a2a5c2612b2af"
   integrity sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==
 
+svelte-flip-clock@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/svelte-flip-clock/-/svelte-flip-clock-0.0.2.tgz#d0bf4dcfa9371b61dc8938b996175ab47612ce8a"
+  integrity sha512-bWdjS8Ym57ei8h89bdLsPsBJPiSWVAiB1iUwHXA8ElN77JFpqJHS30WaRPMTCopawcHzxGs9T0PI8ze4TixAlA==
+
 svelte-hmr@^0.16.0:
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.16.0.tgz#9f345b7d1c1662f1613747ed7e82507e376c1716"

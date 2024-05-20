@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@sveltestrap/sveltestrap": "^6.2.7",
+    "svelte-flip-clock": "^0.0.2",
     "svelte-spa-router": "^4.0.1"
   }
 }
