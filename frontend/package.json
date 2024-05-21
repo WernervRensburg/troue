@@ -15,7 +15,12 @@
   },
   "dependencies": {
     "@sveltestrap/sveltestrap": "^6.2.7",
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/node": "^20.12.12",
+    "sass": "^1.77.2",
     "svelte-flip-clock": "^0.0.2",
-    "svelte-spa-router": "^4.0.1"
+    "svelte-preprocess": "^5.1.4",
+    "svelte-spa-router": "^4.0.1",
+    "typescript": "^5.4.5"
   }
 }
