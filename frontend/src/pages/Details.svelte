@@ -17,12 +17,8 @@
 
     if (timeRemaining > 0) {
       const totalDays = Math.ceil(timeRemaining / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor(
-        (timeRemaining % (1000 * 60 * 60)) / (1000 * 60)
-      );
+      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
       myCustomDate.setFullYear(2024);
@@ -81,13 +77,22 @@
       Louvain Guest Farm<span class="comma">,</span> Herold
     </div>
     <div class="directions">
-      <iframe class="directions-i" title="Directions" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3315.0517387712734!2d22.645873976490577!3d-33.81097787324878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e78aa5c9f79c6bf%3A0xf312fd42c844633d!2sLouvain%20Guest%20Farm!5e0!3m2!1sen!2sza!4v1716314598236!5m2!1sen!2sza" width="600" height="450" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe
+        class="directions-i"
+        title="Directions"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3315.0517387712734!2d22.645873976490577!3d-33.81097787324878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e78aa5c9f79c6bf%3A0xf312fd42c844633d!2sLouvain%20Guest%20Farm!5e0!3m2!1sen!2sza!4v1716314598236!5m2!1sen!2sza"
+        width="600"
+        height="450"
+        style="border:0;"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
     </div>
     <div class="vd-wrapper">
       <div class="vd-left"></div>
       <div class="vd-right"></div>
     </div>
-    <img class="venue-images" src={venueImages} alt="images of the venue"/>
+    <img class="venue-images" src={venueImages} alt="images of the venue" />
   </div>
   <div class="other-details-wrapper">
     <div class="accomodation">
@@ -97,17 +102,27 @@
         <div class="vd-right"></div>
       </div>
       <p class="acc-p">
-        Die indeling van gaste in die glamping en stalle word deur ons <strong>alleenlik</strong> gedoen nadat die RSVPs gefinaliseer is - Dui aan in die RSVP hoeveel aande oorgebly gaan word.
-        
-        Daar is 2 tipes akkommodasie beskikbaar op die venue, glamping of die stalle.
+        Die indeling van gaste in die glamping en stalle word deur ons <strong>alleenlik</strong> gedoen nadat die RSVPs
+        gefinaliseer is <span class="comma">-</span> Dui aan in die RSVP hoeveel aande oorgebly gaan word<span
+          class="comma">.</span
+        ><br /><br />
 
-        Die stalle vat 3 persone per stal, en die glamping vat 2 persone per tent.
+        Daar is 2 tipes akkommodasie beskikbaar op die venue<span class="comma">,</span> glamping of die stalle<span
+          class="comma">.</span
+        ><br /><br />
 
-        Die kostes vir die stalle is R450pppn indien albei aande gebly word, andersins is dit R700pp vir 1 aand.
+        Die stalle vat 3 persone per stal<span class="comma">,</span> en die glamping vat 2 persone per tent<span
+          class="comma">.</span
+        ><br /><br />
 
-        Die kostes vir die glamping is R350pppn indien albei aande gebly word, andersins is dit R1000 per tent (R500pp).
+        Die kostes vir die stalle is R450pppn indien albei aande gebly word<span class="comma">,</span> andersins is dit
+        R700pp vir 1 aand<span class="comma">.</span><br /><br />
 
-        Die betaling van die verblyf word deur Louvain hanteer, Louvain stuur self n faktuur uit na die gaste wat oorbly nadat ons almal ingedeel het.
+        Die kostes vir die glamping is R350pppn indien albei aande gebly word<span class="comma">,</span> andersins is
+        dit R1000 per tent <span class="comma">(</span>R500pp<span class="comma">).</span><br /><br />
+
+        Die betaling van die verblyf word deur Louvain hanteer<span class="comma">,</span> Louvain stuur self n faktuur
+        uit na die gaste wat oorbly nadat ons almal ingedeel het<span class="comma">.</span><br /><br />
       </p>
     </div>
     <div class="friday-event">
@@ -222,4 +237,20 @@
     padding-top: 30px;
   }
 
+  .acc-p {
+    font-family: "RoxaleStory";
+    font-size: 20px;
+    color: #ad925d;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (min-width: 1000px) {
+    .acc-p {
+      font-size: 24px;
+    }
+  }
+
+  .other-details-wrapper {
+    background-color: #e6fcfc;
+  }
 </style>
