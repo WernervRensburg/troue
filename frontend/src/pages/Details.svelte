@@ -1,6 +1,6 @@
 <script>
-  import FlipClock from "svelte-flip-clock";
   import CustomFlipClock from "../lib/components/FlipClock.svelte";
+  import RsvpComponent from "../lib/components/RSVPComponent.svelte";
 
   import { onMount } from "svelte";
 
@@ -131,6 +131,14 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
+      <p class="fri-p">
+        Ons gaan die Vrydagaand <span class="comma">'</span>n bring en braai hou by die glamping area<span class="comma"
+          >.</span
+        ><br /><br />
+        Daar sal platters en slaaie voorsien word<span class="comma">,</span> terwyl drank en enige ander kosse die
+        gaste se eie verantwoordelikheid is<span class="comma">.</span><br /><br />
+        Tyd is vanaf 05<span class="comma">:</span>00PM
+      </p>
     </div>
     <div class="dresscode">
       <span class="main-header venue-header">Kleredrag</span>
@@ -138,6 +146,9 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
+      <p class="dress-p">
+        Cocktail drag <span class="comma">-</span>
+      </p>
     </div>
     <div class="rsvp">
       <span class="main-header venue-header">RSVP</span>
@@ -145,6 +156,7 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
+      <RsvpComponent />
     </div>
     <div class="registry">
       <span class="main-header venue-header">Register</span>
@@ -152,6 +164,9 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
+      <p class="reg-p">
+        Daar sal <span class="comma">'</span>n houer op die dag beskikbaar wees waarin koeverte geplaas kan word<span class="comma">.</span>
+      </p>
     </div>
   </div>
 </div>
@@ -237,7 +252,10 @@
     padding-top: 30px;
   }
 
-  .acc-p {
+  .acc-p,
+  .reg-p,
+  .fri-p,
+  .dress-p {
     font-family: "RoxaleStory";
     font-size: 20px;
     color: #ad925d;
@@ -245,8 +263,16 @@
   }
 
   @media (min-width: 1000px) {
-    .acc-p {
+    .acc-p,
+    .reg-p,
+    .fri-p,
+    .dress-p,
+    .where,
+    .when {
       font-size: 24px;
+    }
+    .main-header {
+      font-size: 36px;
     }
   }
 
