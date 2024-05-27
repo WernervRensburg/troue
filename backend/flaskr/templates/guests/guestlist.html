@@ -1,0 +1,27 @@
+{% block content %}
+  <table>
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Family Group</th>
+        <th>Friday Attendance</th>
+        <th>Accommodation</th>
+        <th>Overall Attendance</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for guest in guests %}
+        <tr>
+          <td>{{ guest['fullname'] }}</td>
+          <td>{{ guest['familyGroup'] }}</td>
+          <td>{{ guest['friday'] }}</td>
+          <td>{{ guest['accommodation'] }}</td>
+          <td>{{ guest['attendance'] }}</td>
+          <td>{{ guest['email'] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{{ url_for('guests.create') }}" class="btn btn-primary">Add Guest</a>
+{% endblock %}

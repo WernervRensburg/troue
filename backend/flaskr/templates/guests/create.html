@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Guest{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="fullname">Full Name</label>
+    <input type="text" name="fullname" id="fullname" value="{{ request.form['fullname'] }}" required>
+    
+    <label for="familyGroup">Family Group</label>
+    <input type="number" name="familyGroup" id="familyGroup" value="{{ request.form['familyGroup'] }}" required>
+    
+    <label for="friday">Friday Attendance</label>
+    <input type="number" name="friday" id="friday" value="{{ request.form['friday'] }}" required>
+    
+    <label for="accommodation">Accommodation</label>
+    <input type="text" name="accommodation" id="accommodation" value="{{ request.form['accommodation'] }}" required>
+    
+    <label for="attendance">Overall Attendance</label>
+    <input type="number" name="attendance" id="attendance" value="{{ request.form['attendance'] }}" required>
+    
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" value="{{ request.form['email'] }}" required>
+    
+    <input type="submit" value="Save">
+  </form>
+  <a href="{{ url_for('guests.guestlist') }}" class="btn btn-primary">View Guest List</a>
+{% endblock %}

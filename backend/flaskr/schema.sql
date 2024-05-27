@@ -1,0 +1,18 @@
+DROP TABLE IF EXISTS guests;
+DROP TABLE IF EXISTS admins;
+
+CREATE TABLE guests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT NOT NULL,
+    familyGroup INTEGER NOT NULL,
+    friday INTEGER NOT NULL,
+    accommodation TEXT NOT NULL,
+    attendance INTEGER NOT NULL,
+    email TEXT NOT NULL
+);
+
+CREATE TABLE admins (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
