@@ -12,7 +12,6 @@
 
   function updateCountdown() {
     const now = new Date();
-    console.log(now);
     const timeRemaining = targetDate.getTime() - now.getTime();
 
     if (timeRemaining > 0) {
