@@ -26,10 +26,11 @@ def create():
         accommodation = request.form['accommodation']
         attendance = request.form['attendance']
         email = request.form['email']
+        plusone = request.form['plusOne']
 
         error = None
 
-        if not fullname or not familyGroup or not friday or not accommodation or not attendance or not email:
+        if not fullname or not familyGroup or not friday or not accommodation or not attendance or not email or not plusone:
             error = 'Missing argument.'
 
         if error is not None:
@@ -37,9 +38,9 @@ def create():
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO guests (fullname, familyGroup, friday, accommodation, attendance, email)'
-                ' VALUES (?, ?, ?, ?, ?, ?)',
-                (fullname, familyGroup, friday, accommodation, attendance, email)
+                'INSERT INTO guests (fullname, familyGroup, friday, accommodation, attendance, email, plusone)'
+                ' VALUES (?, ?, ?, ?, ?, ?, ?)',
+                (fullname, familyGroup, friday, accommodation, attendance, email, plusone)
             )
             db.commit()
             return redirect(url_for('guests.guestlist'))

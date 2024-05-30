@@ -8,7 +8,8 @@ CREATE TABLE guests (
     friday INTEGER NOT NULL,
     accommodation TEXT NOT NULL,
     attendance INTEGER NOT NULL,
-    email TEXT NOT NULL
+    email TEXT NOT NULL,
+    plusone INTEGER NOT NULL
 );
 
 CREATE TABLE admins (
