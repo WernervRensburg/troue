@@ -52,7 +52,7 @@
     <div class="when-icon">
       <i class="fa-regular fa-clock d-icon fa-2xl"></i>
     </div>
-    <div class="when">26 Oktober 2024, 04<span class="comma">:</span>00 PM</div>
+    <div class="when">26 Oktober 2024, 04:00 PM</div>
     <div class="countdown">
       <CustomFlipClock
         bind:date={myCustomDate}
@@ -73,7 +73,7 @@
       <i class="fa-solid fa-location-dot fa-2xl d-icon"></i>
     </div>
     <div class="where">
-      Louvain Guest Farm<span class="comma">,</span> Herold
+      Louvain Guest Farm, Herold
     </div>
     <div class="directions">
       <iframe
@@ -102,26 +102,21 @@
       </div>
       <p class="acc-p">
         Die indeling van gaste in die glamping en stalle word deur ons <strong>alleenlik</strong> gedoen nadat die RSVPs
-        gefinaliseer is <span class="comma">-</span> Dui aan in die RSVP hoeveel aande oorgebly gaan word<span
-          class="comma">.</span
-        ><br /><br />
+        gefinaliseer is - Dui aan in die RSVP hoeveel aande oorgebly gaan word
+          .<br /><br />
 
-        Daar is 2 tipes akkommodasie beskikbaar op die venue<span class="comma">,</span> glamping of die stalle<span
-          class="comma">.</span
-        ><br /><br />
+        Daar is 2 tipes akkommodasie beskikbaar op die venue, glamping of die stalle.<br /><br />
 
-        Die stalle vat 3 persone per stal<span class="comma">,</span> en die glamping vat 2 persone per tent<span
-          class="comma">.</span
-        ><br /><br />
+        Die stalle vat 3 persone per stal, en die glamping vat 2 persone per tent.<br /><br />
 
-        Die kostes vir die stalle is R450pppn indien albei aande gebly word<span class="comma">,</span> andersins is dit
-        R700pp vir 1 aand<span class="comma">.</span><br /><br />
+        Die kostes vir die stalle is R450pppn indien albei aande gebly word, andersins is dit
+        R700pp vir 1 aand.<br /><br />
 
-        Die kostes vir die glamping is R350pppn indien albei aande gebly word<span class="comma">,</span> andersins is
-        dit R1000 per tent <span class="comma">(</span>R500pp<span class="comma">).</span><br /><br />
+        Die kostes vir die glamping is R350pppn indien albei aande gebly word, andersins is
+        dit R1000 per tent (R500pp).<br /><br />
 
-        Die betaling van die verblyf word deur Louvain hanteer<span class="comma">,</span> Louvain stuur self n faktuur
-        uit na die gaste wat oorbly nadat ons almal ingedeel het<span class="comma">.</span><br /><br />
+        Die betaling van die verblyf word deur Louvain hanteer, Louvain stuur self n faktuur
+        uit na die gaste wat oorbly nadat ons almal ingedeel het.<br /><br />
       </p>
     </div>
     <div class="friday-event">
@@ -131,12 +126,10 @@
         <div class="vd-right"></div>
       </div>
       <p class="fri-p">
-        Ons gaan die Vrydagaand <span class="comma">'</span>n bring en braai hou by die glamping area<span class="comma"
-          >.</span
-        ><br /><br />
-        Daar sal platters en slaaie voorsien word<span class="comma">,</span> terwyl drank en enige ander kosse die
-        gaste se eie verantwoordelikheid is<span class="comma">.</span><br /><br />
-        Tyd is vanaf 05<span class="comma">:</span>00PM
+        Ons gaan die Vrydagaand 'n bring en braai hou by die glamping area.<br /><br />
+        Daar sal platters en slaaie voorsien word, terwyl drank en enige ander kosse die
+        gaste se eie verantwoordelikheid is.<br /><br />
+        Tyd is vanaf 05:00PM
       </p>
     </div>
     <div class="dresscode">
@@ -146,7 +139,7 @@
         <div class="vd-right"></div>
       </div>
       <p class="dress-p">
-        Cocktail drag <span class="comma">-</span>
+        Cocktail drag -
       </p>
     </div>
     <div class="rsvp">
@@ -164,7 +157,7 @@
         <div class="vd-right"></div>
       </div>
       <p class="reg-p">
-        Daar sal <span class="comma">'</span>n houer op die dag beskikbaar wees waarin koeverte geplaas kan word<span class="comma">.</span>
+        Daar sal 'n houer op die dag beskikbaar wees waarin koeverte geplaas kan word.
       </p>
     </div>
   </div>
@@ -197,6 +190,7 @@
   .vd-right,
   .vd-left {
     height: 55px;
+    user-select: none;
   }
 
   .vd-right {
@@ -223,13 +217,10 @@
   .main-header,
   .where,
   .when {
-    font-family: "RoxaleStory";
+    font-family: "QueenSides";
     color: #ad925d;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .comma {
-    font-family: "Times New Roman", Times, serif !important;
+    user-select: none;
   }
 
   .countdown {
@@ -255,10 +246,11 @@
   .reg-p,
   .fri-p,
   .dress-p {
-    font-family: "RoxaleStory";
+    font-family: "QueenSides";
     font-size: 20px;
     color: #ad925d;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    user-select: none;
   }
 
   @media (min-width: 1000px) {

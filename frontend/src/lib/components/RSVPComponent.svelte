@@ -12,20 +12,30 @@
     name: name,
   };
 
+  let email = "";
+  let emailValid = false;
+
+  let options = [
+    { value: "vrydagaand", text: "Slegs Vrydagaand" },
+    { value: "saterdagaand", text: "Slegs Saterdagaand" },
+    { value: "albei", text: "Albei aande" },
+    { value: "geen", text: "Gaan nie oorbly nie" },
+  ];
+
+  let plusOne = '';
+  let bringingPlusOne = false;
+
   async function findInvite() {
     rsvpStage += 1;
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:5000/guests/find_guest?format=json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(findGuestData),
-        }
-      );
+      const response = await fetch("http://127.0.0.1:5000/guests/find_guest?format=json", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(findGuestData),
+      });
 
       const responseStatus = response.status;
 
@@ -40,67 +50,26 @@
     }
   }
 
-  async function updateGuestAttendance() {
+  async function saveGuestResponse() {
     rsvpStage += 1;
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:5000/guests/update_guest_attendance?format=json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(postData),
-        }
-      );
+      const response = await fetch("http://127.0.0.1:5000/guests/save_response?format=json", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(guestData),
+      });
 
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+      const responseStatus = response.status;
 
-  async function updateGuestAccommodation() {
-    rsvpStage += 1;
-
-    try {
-      const response = await fetch(
-        "http://127.0.0.1:5000/guests/update_guest_accommodation?format=json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(postData),
-        }
-      );
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function updateGuestEmail() {
-    rsvpStage += 1;
-
-    try {
-      const response = await fetch(
-        "http://127.0.0.1:5000/guests/update_guest_accommodation?format=json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(postData),
-        }
-      );
-
-      const data = await response.json();
-      console.log(data);
+      if (responseStatus === 200) {
+        responseData = await response.json();
+        console.log(responseData);
+        guestData = responseData;
+        foundGuest = true;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -113,10 +82,36 @@
   function decreaseRsvpStage() {
     rsvpStage -= 1;
   }
+
+  function resetRSVP() {
+    guestData = [];
+    responseData = [];
+    rsvpStage -= 1;
+  }
+
+  function handleEmailChange() {
+    emailValid = /\S+@\S+\.\S+/.test(email);
+    if (!emailValid) return;
+    guestData = guestData.map(guest => ({ ...guest, email }));
+  }
+
   function handleGuestAttendance(guestID, response) {
     guestData = guestData.map((guest) => {
       if (guest.id === guestID) {
         return { ...guest, attendance: response };
+      }
+      return guest;
+    });
+    guestData = [...guestData];
+    console.log(guestData);
+  }
+
+  function handleGuestAccomodation(guestID, event) {
+    const selectedValue = event.target.value;
+
+    guestData = guestData.map((guest) => {
+      if (guest.id === guestID) {
+        return { ...guest, accommodation: selectedValue };
       }
       return guest;
     });
@@ -129,95 +124,188 @@
   {#if rsvpStage === 0}
     <div class="find-inv-wrapper">
       <p class="rsvp-desc">
-        Indien jy vir jou en <span class="comma">'</span>n gas RSVP
-        <span class="comma">(</span>of jou familie<span class="comma">),</span>
-        sal jy kan RSVP vir die hele groep<span class="comma">.</span>
+        Indien jy vir jou en 'n gas RSVP
+        (of jou familie)
+        sal jy kan RSVP vir die hele groep.
       </p>
       <div class="form">
-        <input
-          class="fn-input"
-          placeholder="Volle Naam en Van"
-          bind:value={name}
-        />
-        <button class="find-invite-btn" on:click={findInvite}
-          >Vind Jou Uitnodiging</button
-        >
+        <input class="fn-input" placeholder="Volle Naam en Van" bind:value={name} />
+        <button class="find-invite-btn" on:click={findInvite}>Vind Jou Uitnodiging</button>
       </div>
     </div>
   {:else if rsvpStage === 1}
     <div class="found-inv-wrapper">
       {#if foundGuest}
+        <span class="general-text">Die volgende uitnodigings is gevind</span>
         {#each guestData as guest}
           <div class="guest-wrapper">
-            {guest.fullname}
+            <span class="guest-name">{guest.fullname}</span>
           </div>
         {/each}
-        <button class="find-invite-btn" on:click={increaseRsvpStage}
-          >Volgende</button
-        >
+        <button class="find-invite-btn" on:click={increaseRsvpStage}>Volgende</button>
+      {:else}
+        <span class="general-text">Daar is ongelukkig nie n uitnodiging aan daardie naam gekoppel nie.</span>
       {/if}
-      <button class="find-invite-btn" on:click={decreaseRsvpStage}
-        >Soek Weer</button
-      >
+      <button class="find-invite-btn" on:click={resetRSVP}>Soek Weer</button>
     </div>
   {:else if rsvpStage === 2}
     <div class="attendance-wrapper">
-      Wie kom almal saam<span class="comma">?</span>
-      {#each responseData as guest}
+      <span class="attendance-desc">Wie kom almal saam?</span>
+      {#each guestData as guest}
         <div class="guest-wrapper">
-          {guest.fullname}
+          <span class="guest-name">{guest.fullname}</span>
           <div class="split-button">
-            <button
-              class:selected={guest.attendance === 1}
-              on:click={() => handleGuestAttendance(guest.id, 1)}>Ja</button
+            <button class:selected={guest.attendance === 1} on:click={() => handleGuestAttendance(guest.id, 1)}
+              >Ja</button
             >
-            <button
-              class:selected={guest.attendance === 0}
-              on:click={() => handleGuestAttendance(guest.id, 0)}>Nee</button
+            <button class:selected={guest.attendance === 0} on:click={() => handleGuestAttendance(guest.id, 0)}
+              >Nee</button
             >
           </div>
         </div>
+        {#if guest.plusone}
+          <span class="attendance-desc">Indien jy 'n +1 saambring, gee hulle naam deur.</span>
+          <input class="fn-input" placeholder="Volle Naam en Van" bind:value={guest.plusoneName} />
+        {/if}
       {/each}
-      <!-- Doen accepted / declined vir al die gaste + vir +1's sit 'n button by om +1 te select, if selected - form field vir naam -->
-      <button class="find-invite-btn" on:click={updateGuestAttendance}
-        >Volgende</button
-      >
-      <button class="find-invite-btn" on:click={decreaseRsvpStage}>Terug</button
-      >
+      <button class="find-invite-btn" on:click={increaseRsvpStage}>Volgende</button>
+      <button class="find-invite-btn" on:click={decreaseRsvpStage}>Terug</button>
     </div>
   {:else if rsvpStage === 3}
     <div class="accommodation-wrapper">
-      Kies jou verblyf opsies
-      <button class="find-invite-btn" on:click={updateGuestAccommodation}
-        >Volgende</button
-      >
-      <button class="find-invite-btn" on:click={decreaseRsvpStage}>Terug</button
-      >
+      <span class="attendance-desc">Kies jou verblyf opsies</span>
+      {#each guestData as guest}
+        <div class="guest-wrapper">
+          <span class="guest-name">{guest.fullname}</span>
+          <div class="acc-list">
+            <select
+              class="acc-select"
+              bind:value={guest.accommodation}
+              on:change={(event) => handleGuestAccomodation(guest.id, event)}
+            >
+              {#each options as option}
+                <option class="acc-option" value={option.value}><span class="test">{option.text}</span></option>
+              {/each}
+            </select>
+          </div>
+        </div>
+      {/each}
+      <button class="find-invite-btn" on:click={increaseRsvpStage}>Volgende</button>
+      <button class="find-invite-btn" on:click={decreaseRsvpStage}>Terug</button>
     </div>
   {:else if rsvpStage === 4}
     <div class="email-wrapper">
-      Epos addres <span class="comma">-</span> baie belangrik sodat Louvain die
-      faktuur vir die verblyf na jou kan stuur
-      <button class="find-invite-btn" on:click={updateGuestEmail}
-        >Volgende</button
+      <span class="email-desc"
+        >Epos addres - baie belangrik sodat Louvain die faktuur vir die verblyf na jou kan stuur</span
       >
-      <button class="find-invite-btn" on:click={decreaseRsvpStage}>Terug</button
-      >
+      {#if !emailValid}
+       <br /><br /><span class="email-desc">Maak asb seker dat dit 'n geldige epos is!</span> 
+      {/if}
+      <input class="email-input" type="email" placeholder="Epos Addres" bind:value={email} on:change={handleEmailChange} required/>
+      <button class="find-invite-btn" on:click={saveGuestResponse} disabled={!emailValid}>Volgende</button>
+      <button class="find-invite-btn" on:click={decreaseRsvpStage}>Terug</button>
     </div>
   {:else if rsvpStage === 5}
     <div class="rsvp-done">
-      Ons sien uit om ons spesiale dag met julle te deel<span class="comma"
-        >!</span
-      >
+      <span class="rsvp-d-desc">Ons sien uit om ons spesiale dag met julle te deel! <br /><br />
+        Daar sal 'n epos gestuur word om die RSVP te bevestig.
 
-      Daar sal <span class="comma">'</span>n epos gestuur word om die RSVP te
-      bevestig<span class="comma">.</span>
+      </span>
+      
     </div>
-    <div></div>
   {/if}
 </div>
 
 <style>
+  .email-input {
+    margin: 15px 0px 15px 0px;
+    width: 450px;
+    box-sizing: border-box;
+    max-width: 100%;
+    border: 1px solid #ad925d;
+    color: #111;
+    background-color: azure;
+    font-family: "QueenSides";
+    font-size: 22px;
+    padding: 8px 20px 8px 20px;
+    max-width: 100%;
+  }
+
+  .fn-input:focus {
+    outline: 1px solid #ad925d;
+    color: #111;
+  }
+
+  .acc-select {
+    padding: 10px;
+    font-family: "QueenSides";
+    font-size: 20px;
+    border: 1px solid #ad925d;
+    box-sizing: border-box;
+    box-shadow: none;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .acc-select:focus {
+    outline: 1px solid #ad925d;
+    color: #111;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .acc-list {
+    width: 100%;
+  }
+
+  @media (max-width: 500px) {
+    .acc-select {
+      margin-top: 5px;
+      margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .guest-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      user-select: none;
+    }
+
+    .split-button {
+      margin-top: 5px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .guest-name {
+    font-family: "QueenSides";
+    color: #111;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    user-select: none;
+  }
+
+  @media (min-width: 501px) {
+    .guest-wrapper {
+      margin: 15px 0px 15px 0px;
+      width: 450px;
+      box-sizing: border-box;
+      max-width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .acc-select {
+      width: 200px;
+    }
+  }
+
   .split-button {
     display: flex;
     width: 200px;
@@ -252,20 +340,14 @@
     background-color: rgba(173, 146, 93, 0.3) !important;
   }
 
-  .rsvp-wrapper {
-    border: 1px solid green;
-  }
-
   .found-inv-wrapper,
   .attendance-wrapper,
-  .email-wrapper {
+  .email-wrapper,
+  .accommodation-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .rsvp-desc {
-    border: 1px solid red;
+    user-select: none;
   }
 
   .form {
@@ -284,9 +366,9 @@
 
   .fn-input {
     border: 1px solid #ad925d;
-    color: #000;
+    color: #111;
     background-color: azure;
-    font-family: "RoxaleStory";
+    font-family: "QueenSides";
     font-size: 22px;
     padding: 8px 20px 8px 20px;
     max-width: 100%;
@@ -302,7 +384,7 @@
     color: #ad925d;
     background-color: azure;
     cursor: pointer;
-    font-family: "RoxaleStory";
+    font-family: "QueenSides";
     font-size: 22px;
     padding: 8px 20px 8px 20px;
     max-width: 100%;
@@ -317,14 +399,19 @@
   .attendance-desc,
   .email-desc,
   .rsvp-d-desc {
-    font-family: "RoxaleStory";
+    font-family: "QueenSides";
     color: #ad925d;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     font-size: 20px;
+    user-select: none;
   }
 
-  .comma {
-    font-family: "Times New Roman", Times, serif !important;
+  .general-text {
+    font-family: "QueenSides";
+    color: #ad925d;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    user-select: none;
   }
 
   @media (min-width: 1000px) {
@@ -334,11 +421,5 @@
     .rsvp-d-desc {
       font-size: 24px;
     }
-  }
-
-  .guest-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: first baseline;
   }
 </style>

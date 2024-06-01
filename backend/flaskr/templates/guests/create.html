@@ -27,6 +27,9 @@
     <label for="plusOne">PlusOne</label>
     <input type="number" name="plusOne" id="plusOne" value="{{ request.form['plusone'] }}" required>
 
+    <label for="plusOneName">PlusOneName</label>
+    <input type="number" name="plusOneName" id="plusOneName" value="{{ request.form['plusoneName'] }}">
+
     <input type="submit" value="Save">
   </form>
   <a href="{{ url_for('guests.guestlist') }}" class="btn btn-primary">View Guest List</a>

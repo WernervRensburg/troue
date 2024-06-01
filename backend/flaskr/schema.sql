@@ -5,11 +5,12 @@ CREATE TABLE guests (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     fullname TEXT NOT NULL,
     familyGroup INTEGER NOT NULL,
-    friday INTEGER NOT NULL,
-    accommodation TEXT NOT NULL,
-    attendance INTEGER NOT NULL,
-    email TEXT NOT NULL,
-    plusone INTEGER NOT NULL
+    friday INTEGER,
+    accommodation TEXT,
+    attendance INTEGER,
+    email TEXT,
+    plusone INTEGER,
+    plusoneName TEXT
 );
 
 CREATE TABLE admins (

@@ -9,6 +9,7 @@ from flaskr.db import get_db
 bp = Blueprint('guests', __name__, url_prefix='/guests')
 
 @bp.route('/guestlist', methods=(["GET"]))
+@login_required
 def guestlist():
     db = get_db()
     guests = db.execute(
@@ -51,7 +52,6 @@ def create():
 def find_guest():
     print('finding guest...')
     try:
-
         if request.args.get('format') == 'json':
             data = request.get_json()
             print(data)
@@ -83,56 +83,31 @@ def find_guest():
         print('Error:', str(e))
         return make_response('Internal Server Error', 500)
 
-@bp.route('/update_guest_attendance', methods=["POST"])
-def update_guest_attendance():
-    print('Saving guest attendance...')
+@bp.route('/save_response', methods=["POST"])
+def save_response():
+    print('Saving guest response...')
     try:
-        data = request.get_json()
-        print(data)
-        format_value = request.args.get('format')
-        print('Format query parameter:', format_value)
         if request.args.get('format') == 'json':
-            response_data = {'message': 'json message'}
-            return jsonify(response_data), 200
+            data = request.get_json()
+            
+            db = get_db()
+
+            for item in data:
+                guest_id = item.get('id')
+                
+                db.execute(
+                    'UPDATE guests SET accommodation = ?, attendance = ?, email = ?, familyGroup = ?, friday = ?, fullname = ?, plusone = ?, plusoneName = ? WHERE id = ?',
+                    (item.get('accommodation'), item.get('attendance'), item.get('email'), item.get('familyGroup'), item.get('friday'), item.get('fullname'), item.get('plusone'), item.get('plusoneName'), guest_id)
+                )
+            
+            db.commit()
+
+            return jsonify({'message': 'Guests updated successfully'}), 200
+    
         else:
             response_data = {'message': 'format not json'}
-            return jsonify(response_data), 400  # Bad Request
-    except Exception as e:
-        print('Error:', str(e))
-        return make_response('Internal Server Error', 500)
+            return jsonify(response_data), 400
 
-
-@bp.route('/update_guest_accommodation', methods=["POST"])
-def update_guest_accommodation():
-    try:
-        data = request.get_json()
-        print(data)
-        format_value = request.args.get('format')
-        print('Format query parameter:', format_value)
-        if request.args.get('format') == 'json':
-            response_data = {'message': 'json message'}
-            return jsonify(response_data), 200
-        else:
-            response_data = {'message': 'format not json'}
-            return jsonify(response_data), 400  # Bad Request
-    except Exception as e:
-        print('Error:', str(e))
-        return make_response('Internal Server Error', 500)
-
-
-@bp.route('/update_guest_email', methods=["POST"])
-def update_guest_email():
-    try:
-        data = request.get_json()
-        print(data)
-        format_value = request.args.get('format')
-        print('Format query parameter:', format_value)
-        if request.args.get('format') == 'json':
-            response_data = {'message': 'json message'}
-            return jsonify(response_data), 200
-        else:
-            response_data = {'message': 'format not json'}
-            return jsonify(response_data), 400  # Bad Request
     except Exception as e:
         print('Error:', str(e))
         return make_response('Internal Server Error', 500)

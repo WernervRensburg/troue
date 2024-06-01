@@ -32,7 +32,7 @@
         <span>Op 26 Oktober 2024</span>
       </div>
       <div class="location">
-        <span>By Louvain Guest Farm<span class="comma">,</span> Herold</span>
+        <span>By Louvain Guest Farm, Herold</span>
       </div>
       <button on:click={showDetails} class="btn">Meer inligting</button>
     </div>
@@ -44,8 +44,8 @@
 
 <style>
   @font-face {
-    font-family: "RoxaleStory";
-    src: url("/assets/fonts/RoxaleStory.ttf") format("truetype");
+    font-family: "QueenSides";
+    src: url("/assets/fonts/QueenSides.ttf") format("truetype");
     font-display: swap;
   }
   @font-face {
@@ -73,7 +73,7 @@
   }
 
   .invite span {
-    font-family: "RoxaleStory";
+    font-family: "QueenSides";
     font-size: 22px;
   }
 
@@ -84,7 +84,7 @@
 
   .date span,
   .location span {
-    font-family: "RoxaleStory";
+    font-family: "QueenSides";
     font-size: 18px;
   }
 
@@ -93,10 +93,6 @@
   .date,
   .location {
     padding-bottom: 25px;
-  }
-
-  .comma {
-    font-family: "Times New Roman", Times, serif !important;
   }
 
   @media (min-width: 1000px) {
@@ -132,7 +128,7 @@
     color: #ad925d;
     background-color: azure;
     cursor: pointer;
-    font-family: "RoxaleStory";
+    font-family: "QueenSides";
     font-size: 22px;
     padding: 8px 20px 8px 20px;
     max-width: 8em;
