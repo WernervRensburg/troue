@@ -22,8 +22,7 @@
     { value: "geen", text: "Gaan nie oorbly nie" },
   ];
 
-  let plusOne = '';
-  let bringingPlusOne = false;
+  let anyAttendance = false;
 
   async function findInvite() {
     rsvpStage += 1;
@@ -76,7 +75,9 @@
   }
 
   function increaseRsvpStage() {
-    rsvpStage += 1;
+    
+    if (rsvpStage === 2 && !anyAttendance) rsvpStage = -1;
+    else rsvpStage += 1;
   }
 
   function decreaseRsvpStage() {
@@ -104,6 +105,8 @@
     });
     guestData = [...guestData];
     console.log(guestData);
+
+    anyAttendance = guestData.some(guest => guest.attendance);
   }
 
   function handleGuestAccomodation(guestID, event) {
@@ -175,6 +178,7 @@
     <div class="accommodation-wrapper">
       <span class="attendance-desc">Kies jou verblyf opsies</span>
       {#each guestData as guest}
+        {#if guest.attendance === 1}
         <div class="guest-wrapper">
           <span class="guest-name">{guest.fullname}</span>
           <div class="acc-list">
@@ -182,13 +186,14 @@
               class="acc-select"
               bind:value={guest.accommodation}
               on:change={(event) => handleGuestAccomodation(guest.id, event)}
-            >
+              >
               {#each options as option}
-                <option class="acc-option" value={option.value}><span class="test">{option.text}</span></option>
+              <option class="acc-option" value={option.value}><span class="test">{option.text}</span></option>
               {/each}
             </select>
           </div>
         </div>
+        {/if}
       {/each}
       <button class="find-invite-btn" on:click={increaseRsvpStage}>Volgende</button>
       <button class="find-invite-btn" on:click={decreaseRsvpStage}>Terug</button>
@@ -209,11 +214,16 @@
     <div class="rsvp-done">
       <span class="rsvp-d-desc">Ons sien uit om ons spesiale dag met julle te deel! <br /><br />
         Daar sal 'n epos gestuur word om die RSVP te bevestig.
-
       </span>
-      
     </div>
+  {:else if rsvpStage === -1}
+  <div class="rsvp-done">
+    <span class="rsvp-d-desc">Dankie dat jy laat weet het dat julle nie die dag kan bywoon nie.<br /><br />
+      Indien jy dit in die toekoms kan maak, kan jy altyd weer hierdie proses volg om te RSVP!
+    </span>
+  </div>
   {/if}
+
 </div>
 
 <style>
