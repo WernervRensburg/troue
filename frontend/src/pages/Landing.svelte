@@ -23,7 +23,7 @@
   <div class="right-section">
     <div class="details-wrapper">
       <div class="invite">
-        <span>Ons nooi jou uit na die huweliksvestiging van</span>
+        <span>Ons nooi jou uit na die huweliksbevestiging van</span>
       </div>
       <div class="names">
         <span>Anja & Werner</span>

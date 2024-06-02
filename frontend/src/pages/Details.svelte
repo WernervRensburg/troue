@@ -107,7 +107,7 @@
 
         Daar is 2 tipes akkommodasie beskikbaar op die venue, glamping of die stalle.<br /><br />
 
-        Die stalle vat 3 persone per stal, en die glamping vat 2 persone per tent.<br /><br />
+        Die stalle vat 3 persone per stal en die glamping vat 2 persone per tent.<br /><br />
 
         Die kostes vir die stalle is R450pppn indien albei aande gebly word, andersins is dit
         R700pp vir 1 aand.<br /><br />
@@ -126,10 +126,30 @@
         <div class="vd-right"></div>
       </div>
       <p class="fri-p">
-        Ons gaan die Vrydagaand 'n bring en braai hou by die glamping area.<br /><br />
-        Daar sal platters en slaaie voorsien word, terwyl drank en enige ander kosse die
+        Ons gaan die Vrydagaand 'n lekker kuier vuur maak by die glamping area.<br /><br />
+        Daar sal platters voorsien word, terwyl drank en enige ander kosse die
         gaste se eie verantwoordelikheid is.<br /><br />
         Tyd is vanaf 05:00PM
+      </p>
+    </div>
+    <div class="dresscode">
+      <span class="main-header venue-header">Saterdag</span>
+      <div class="vd-wrapper">
+        <div class="vd-left"></div>
+        <div class="vd-right"></div>
+      </div>
+      <p class="dress-p">
+        Ontbyt is gaste se eie verantwoordelikheid. Daar is 'n opsie om ontbyt te koop vir R95.
+      </p>
+    </div>
+    <div class="dresscode">
+      <span class="main-header venue-header">Seremonie</span>
+      <div class="vd-wrapper">
+        <div class="vd-left"></div>
+        <div class="vd-right"></div>
+      </div>
+      <p class="dress-p">
+        Die seremonie begin Saterdag 4 uur by die ou klip kerk.
       </p>
     </div>
     <div class="dresscode">
@@ -139,7 +159,7 @@
         <div class="vd-right"></div>
       </div>
       <p class="dress-p">
-        Cocktail drag -
+        - Cocktail drag -
       </p>
     </div>
     <div class="rsvp">

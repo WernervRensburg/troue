@@ -28,7 +28,7 @@
     rsvpStage += 1;
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/guests/find_guest?format=json", {
+      const response = await fetch("http://192.168.10.103:5000/guests/find_guest?format=json", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@
     rsvpStage += 1;
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/guests/save_response?format=json", {
+      const response = await fetch("http://192.168.10.103:5000/guests/save_response?format=json", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
