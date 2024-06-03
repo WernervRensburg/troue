@@ -2,11 +2,30 @@
   import CustomFlipClock from "../lib/components/FlipClock.svelte";
   import RsvpComponent from "../lib/components/RSVPComponent.svelte";
 
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from 'svelte';
 
   import venueImages from "../assets/images/venue-images.png";
 
+  let allowRSVP = true;
+
   const targetDate = new Date("2024-10-26T16:00:00");
+  const rsvpDate = new Date("2024-08-14T23:59:59");
+
+  const checkDate = () => {
+    const now = new Date();
+    allowRSVP = now < rsvpDate;
+  };
+
+  let intervalId;
+
+  onMount(() => {
+    checkDate();
+    intervalId = setInterval(checkDate, 10000);
+  });
+
+  onDestroy(() => {
+    clearInterval(interval);
+  });
 
   let myCustomDate = new Date();
 
@@ -182,7 +201,11 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
-      <RsvpComponent />
+      {#if allowRSVP}
+        <RsvpComponent />
+      {:else}
+      <p class="dress-p">Die RSVPs het ongelukkig toegemaak.</p>
+      {/if}
     </div>
     <div class="registry">
       <span class="main-header venue-header">Register</span>

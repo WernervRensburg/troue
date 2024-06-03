@@ -136,7 +136,9 @@
 <div class="rsvp-wrapper">
   {#if rsvpStage === 0}
     <div class="find-inv-wrapper">
-      <p class="rsvp-desc">Indien jy vir jou en 'n gas RSVP (of jou familie) sal jy kan RSVP vir die hele groep.</p>
+      <p class="rsvp-desc">Indien jy vir jou en 'n gas RSVP (of jou familie) sal jy kan RSVP vir die hele groep.</p><br /><br />
+
+      <p class="rsvp-desc">RSVP asseblief op die laatste teen 14 Augustus 2024.</p>
       <div class="form">
         <input class="fn-input" placeholder="Naam en Van" bind:value={name} />
         <button class="find-invite-btn" on:click={findInvite}>Vind Jou Uitnodiging</button>
