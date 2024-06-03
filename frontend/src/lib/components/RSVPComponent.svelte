@@ -231,7 +231,6 @@
     <div class="rsvp-done">
       <span class="rsvp-d-desc"
         >Ons sien uit om ons spesiale dag met julle te deel! <br /><br />
-        Daar sal 'n epos gestuur word om die RSVP te bevestig.
       </span>
     </div>
   {:else if rsvpStage === -1}
