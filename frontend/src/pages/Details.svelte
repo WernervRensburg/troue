@@ -15,18 +15,41 @@
     const timeRemaining = targetDate.getTime() - now.getTime();
 
     if (timeRemaining > 0) {
-      const totalDays = Math.ceil(timeRemaining / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
+      const totalSeconds = Math.floor(timeRemaining / 1000);
+      const seconds = totalSeconds % 60;
+
+      const totalMinutes = Math.floor(totalSeconds / 60);
+      const minutes = totalMinutes % 60;
+
+      const totalHours = Math.floor(totalMinutes / 60);
+      const hours = totalHours % 24;
+
+      let years = targetDate.getFullYear() - now.getFullYear();
+      let months = targetDate.getMonth() - now.getMonth();
+      let days = targetDate.getDate() - now.getDate();
+
+      if (days < 0) {
+        months--;
+        const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += previousMonth.getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+      
       myCustomDate.setFullYear(2024);
-      myCustomDate.setMonth(0);
-      myCustomDate.setDate(totalDays);
+      myCustomDate.setMonth(months);
+      myCustomDate.setDate(days);
       myCustomDate.setHours(hours);
       myCustomDate.setMinutes(minutes);
       myCustomDate.setSeconds(seconds);
     } else {
+      myCustomDate.setFullYear(2024);
+      myCustomDate.setMonth(0);
+      myCustomDate.setDate(0);
       myCustomDate.setHours(0);
       myCustomDate.setMinutes(0);
       myCustomDate.setSeconds(0);
@@ -72,9 +95,7 @@
     <div class="where-icon">
       <i class="fa-solid fa-location-dot fa-2xl d-icon"></i>
     </div>
-    <div class="where">
-      Louvain Guest Farm, Herold
-    </div>
+    <div class="where">Louvain Guest Farm, Herold</div>
     <div class="directions">
       <iframe
         class="directions-i"
@@ -102,21 +123,20 @@
       </div>
       <p class="acc-p">
         Die indeling van gaste in die glamping en stalle word deur ons <strong>alleenlik</strong> gedoen nadat die RSVPs
-        gefinaliseer is - Dui aan in die RSVP hoeveel aande oorgebly gaan word
-          .<br /><br />
+        gefinaliseer is - Dui aan in die RSVP hoeveel aande oorgebly gaan word .<br /><br />
 
         Daar is 2 tipes akkommodasie beskikbaar op die venue, glamping of die stalle.<br /><br />
 
         Die stalle vat 3 persone per stal en die glamping vat 2 persone per tent.<br /><br />
 
-        Die kostes vir die stalle is R450pppn indien albei aande gebly word, andersins is dit
-        R700pp vir 1 aand.<br /><br />
+        Die kostes vir die stalle is R450pppn indien albei aande gebly word, andersins is dit R700pp vir 1 aand.<br
+        /><br />
 
-        Die kostes vir die glamping is R350pppn indien albei aande gebly word, andersins is
-        dit R1000 per tent (R500pp).<br /><br />
+        Die kostes vir die glamping is R350pppn indien albei aande gebly word, andersins is dit R1000 per tent (R500pp).<br
+        /><br />
 
-        Die betaling van die verblyf word deur Louvain hanteer, Louvain stuur self n faktuur
-        uit na die gaste wat oorbly nadat ons almal ingedeel het.<br /><br />
+        Die betaling van die verblyf word deur Louvain hanteer, Louvain stuur self n faktuur uit na die gaste wat oorbly
+        nadat ons almal ingedeel het.<br /><br />
       </p>
     </div>
     <div class="friday-event">
@@ -127,8 +147,8 @@
       </div>
       <p class="fri-p">
         Ons gaan die Vrydagaand 'n lekker kuier vuur maak by die glamping area.<br /><br />
-        Daar sal platters voorsien word, terwyl drank en enige ander kosse die
-        gaste se eie verantwoordelikheid is.<br /><br />
+        Daar sal platters voorsien word, terwyl drank en enige ander kosse die gaste se eie verantwoordelikheid is.<br
+        /><br />
         Tyd is vanaf 05:00PM
       </p>
     </div>
@@ -138,9 +158,7 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
-      <p class="dress-p">
-        Ontbyt is gaste se eie verantwoordelikheid. Daar is 'n opsie om ontbyt te koop vir R95.
-      </p>
+      <p class="dress-p">Ontbyt is gaste se eie verantwoordelikheid.</p>
     </div>
     <div class="dresscode">
       <span class="main-header venue-header">Seremonie</span>
@@ -148,9 +166,7 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
-      <p class="dress-p">
-        Die seremonie begin Saterdag 4 uur by die ou klip kerk.
-      </p>
+      <p class="dress-p">Die seremonie begin Saterdag 04:00PM by die ou klip kerk, naby aan die hoof venue.</p>
     </div>
     <div class="dresscode">
       <span class="main-header venue-header">Kleredrag</span>
@@ -158,9 +174,7 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
-      <p class="dress-p">
-        - Cocktail drag -
-      </p>
+      <p class="dress-p">- Cocktail drag -</p>
     </div>
     <div class="rsvp">
       <span class="main-header venue-header">RSVP</span>
@@ -176,9 +190,7 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
-      <p class="reg-p">
-        Daar sal 'n houer op die dag beskikbaar wees waarin koeverte geplaas kan word.
-      </p>
+      <p class="reg-p">Daar sal 'n houer op die dag beskikbaar wees waarin koeverte geplaas kan word.</p>
     </div>
   </div>
 </div>
@@ -188,6 +200,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    user-select: none;
   }
 
   .main-wrapper div {

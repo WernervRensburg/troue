@@ -56,24 +56,33 @@ def find_guest():
             data = request.get_json()
             print(data)
 
-            guest_name = data.get('name')
+            guest_name = data.get('name').lower()
+            guest_name = '%' + guest_name + '%'
+            print(guest_name)
             if not guest_name:
                 return jsonify({'error': 'guest_name_required'}), 400
 
             db = get_db()
-            guest = db.execute(
-                'SELECT * FROM guests WHERE fullname = ?', (guest_name,)
-            ).fetchone()
+            guests = db.execute(
+                'SELECT * FROM guests WHERE fullname LIKE ?', (guest_name,)
+            ).fetchall()
 
-            if guest is None:
+            if not guests:
                 return jsonify({'error': 'guest_not_found'}), 404
 
-            family_group = guest['familyGroup']
-            familyGuests = db.execute(
+            #Check if familyGroup is unique
+            family_groups = {guest['familyGroup'] for guest in guests}
+
+            if len(family_groups) > 1:
+                return jsonify({'error': 'multiple_family_groups_found'}), 400
+
+            family_group = guests[0]['familyGroup']
+
+            family_guests = db.execute(
                 'SELECT * FROM guests WHERE familyGroup = ?', (family_group,)
             ).fetchall();
 
-            guests_list = [dict(row) for row in familyGuests]
+            guests_list = [dict(row) for row in family_guests]
 
             return jsonify(guests_list), 200
         else:

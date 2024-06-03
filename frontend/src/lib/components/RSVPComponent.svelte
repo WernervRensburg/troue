@@ -3,7 +3,8 @@
   let postData = {};
   let responseData = null;
 
-  let foundGuest = false;
+  // 0 for no guests, 1 for single, correct guest, 2 for multiple guests of different groups, 3 for error
+  let foundGuestStatus = 0;
   $: guestData = [];
 
   let name = "";
@@ -28,7 +29,7 @@
     rsvpStage += 1;
 
     try {
-      const response = await fetch("http://192.168.10.103:5000/guests/find_guest?format=json", {
+      const response = await fetch("http://127.0.0.1:5000/guests/find_guest?format=json", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +43,17 @@
         responseData = await response.json();
         console.log(responseData);
         guestData = responseData;
-        foundGuest = true;
+        foundGuestStatus = 1;
+      } else if (responseStatus === 400) {
+        responseData = await response.json();
+        console.log(responseData.error);
+        if (responseData.error === "multiple_family_groups_found") {
+          foundGuestStatus = 2;
+        }
+      } else if (responseStatus === 404) {
+        foundGuestStatus = 0;
+      } else if (responeStatus === 500) {
+        foundGuestStatus = 3;
       }
     } catch (error) {
       console.log(error);
@@ -53,7 +64,7 @@
     rsvpStage += 1;
 
     try {
-      const response = await fetch("http://192.168.10.103:5000/guests/save_response?format=json", {
+      const response = await fetch("http://127.0.0.1:5000/guests/save_response?format=json", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +78,6 @@
         responseData = await response.json();
         console.log(responseData);
         guestData = responseData;
-        foundGuest = true;
       }
     } catch (error) {
       console.log(error);
@@ -75,7 +85,6 @@
   }
 
   function increaseRsvpStage() {
-    
     if (rsvpStage === 2 && !anyAttendance) rsvpStage = -1;
     else rsvpStage += 1;
   }
@@ -85,6 +94,7 @@
   }
 
   function resetRSVP() {
+    name = "";
     guestData = [];
     responseData = [];
     rsvpStage -= 1;
@@ -93,7 +103,7 @@
   function handleEmailChange() {
     emailValid = /\S+@\S+\.\S+/.test(email);
     if (!emailValid) return;
-    guestData = guestData.map(guest => ({ ...guest, email }));
+    guestData = guestData.map((guest) => ({ ...guest, email }));
   }
 
   function handleGuestAttendance(guestID, response) {
@@ -106,7 +116,7 @@
     guestData = [...guestData];
     console.log(guestData);
 
-    anyAttendance = guestData.some(guest => guest.attendance);
+    anyAttendance = guestData.some((guest) => guest.attendance);
   }
 
   function handleGuestAccomodation(guestID, event) {
@@ -126,19 +136,15 @@
 <div class="rsvp-wrapper">
   {#if rsvpStage === 0}
     <div class="find-inv-wrapper">
-      <p class="rsvp-desc">
-        Indien jy vir jou en 'n gas RSVP
-        (of jou familie)
-        sal jy kan RSVP vir die hele groep.
-      </p>
+      <p class="rsvp-desc">Indien jy vir jou en 'n gas RSVP (of jou familie) sal jy kan RSVP vir die hele groep.</p>
       <div class="form">
-        <input class="fn-input" placeholder="Volle Naam en Van" bind:value={name} />
+        <input class="fn-input" placeholder="Naam en Van" bind:value={name} />
         <button class="find-invite-btn" on:click={findInvite}>Vind Jou Uitnodiging</button>
       </div>
     </div>
   {:else if rsvpStage === 1}
     <div class="found-inv-wrapper">
-      {#if foundGuest}
+      {#if foundGuestStatus === 1}
         <span class="general-text">Die volgende uitnodigings is gevind</span>
         {#each guestData as guest}
           <div class="guest-wrapper">
@@ -146,8 +152,10 @@
           </div>
         {/each}
         <button class="find-invite-btn" on:click={increaseRsvpStage}>Volgende</button>
-      {:else}
+      {:else if foundGuestStatus === 0}
         <span class="general-text">Daar is ongelukkig nie n uitnodiging aan daardie naam gekoppel nie.</span>
+      {:else if foundGuestStatus === 2}
+        <span class="general-text">Daar is meer as 1 gas met U naam, verfyn jou soektog deur jou van by te sit.</span>
       {/if}
       <button class="find-invite-btn" on:click={resetRSVP}>Soek Weer</button>
     </div>
@@ -168,7 +176,7 @@
         </div>
         {#if guest.plusone}
           <span class="attendance-desc">Indien jy 'n +1 saambring, gee hulle naam deur.</span>
-          <input class="fn-input" placeholder="Volle Naam en Van" bind:value={guest.plusoneName} />
+          <input class="fn-input" placeholder="Naam en Van" bind:value={guest.plusoneName} />
         {/if}
       {/each}
       <button class="find-invite-btn" on:click={increaseRsvpStage}>Volgende</button>
@@ -179,20 +187,20 @@
       <span class="attendance-desc">Kies jou verblyf opsies</span>
       {#each guestData as guest}
         {#if guest.attendance === 1}
-        <div class="guest-wrapper">
-          <span class="guest-name">{guest.fullname}</span>
-          <div class="acc-list">
-            <select
-              class="acc-select"
-              bind:value={guest.accommodation}
-              on:change={(event) => handleGuestAccomodation(guest.id, event)}
+          <div class="guest-wrapper">
+            <span class="guest-name">{guest.fullname}</span>
+            <div class="acc-list">
+              <select
+                class="acc-select"
+                bind:value={guest.accommodation}
+                on:change={(event) => handleGuestAccomodation(guest.id, event)}
               >
-              {#each options as option}
-              <option class="acc-option" value={option.value}><span class="test">{option.text}</span></option>
-              {/each}
-            </select>
+                {#each options as option}
+                  <option class="acc-option" value={option.value}><span class="test">{option.text}</span></option>
+                {/each}
+              </select>
+            </div>
           </div>
-        </div>
         {/if}
       {/each}
       <button class="find-invite-btn" on:click={increaseRsvpStage}>Volgende</button>
@@ -201,29 +209,37 @@
   {:else if rsvpStage === 4}
     <div class="email-wrapper">
       <span class="email-desc"
-        >Epos addres - baie belangrik sodat Louvain die faktuur vir die verblyf na jou kan stuur</span
+        >Epos addres - baie belangrik sodat Louvain die faktuur vir die verblyf na jou kan stuur.</span
       >
       {#if !emailValid}
-       <br /><br /><span class="email-desc">Maak asb seker dat dit 'n geldige epos is!</span> 
+        <br /><br /><span class="email-desc">Maak asb seker dat dit 'n geldige epos is!</span>
       {/if}
-      <input class="email-input" type="email" placeholder="Epos Addres" bind:value={email} on:change={handleEmailChange} required/>
+      <input
+        class="email-input"
+        type="email"
+        placeholder="Epos Addres"
+        bind:value={email}
+        on:change={handleEmailChange}
+        required
+      />
       <button class="find-invite-btn" on:click={saveGuestResponse} disabled={!emailValid}>Volgende</button>
       <button class="find-invite-btn" on:click={decreaseRsvpStage}>Terug</button>
     </div>
   {:else if rsvpStage === 5}
     <div class="rsvp-done">
-      <span class="rsvp-d-desc">Ons sien uit om ons spesiale dag met julle te deel! <br /><br />
+      <span class="rsvp-d-desc"
+        >Ons sien uit om ons spesiale dag met julle te deel! <br /><br />
         Daar sal 'n epos gestuur word om die RSVP te bevestig.
       </span>
     </div>
   {:else if rsvpStage === -1}
-  <div class="rsvp-done">
-    <span class="rsvp-d-desc">Dankie dat jy laat weet het dat julle nie die dag kan bywoon nie.<br /><br />
-      Indien jy dit in die toekoms kan maak, kan jy altyd weer hierdie proses volg om te RSVP!
-    </span>
-  </div>
+    <div class="rsvp-done">
+      <span class="rsvp-d-desc"
+        >Dankie dat jy laat weet het dat julle nie die dag kan bywoon nie.<br /><br />
+        Indien jy dit in die toekoms kan maak, kan jy altyd weer hierdie proses volg om te RSVP!
+      </span>
+    </div>
   {/if}
-
 </div>
 
 <style>
@@ -311,8 +327,12 @@
       user-select: none;
     }
 
+    .acc-list {
+      max-width: 220px;
+    }
+
     .acc-select {
-      width: 200px;
+      max-width: 220px;
     }
   }
 

@@ -37,7 +37,7 @@
         const myDate = date || new Date();
         const newData: string[] = [];
         if (showMonths) newData.push(myDate.getMonth().toString().padStart(2, "0"));
-        if (showDays) newData.push(myDate.getDay().toString().padStart(2, "0"));
+        if (showDays) newData.push(myDate.getDate().toString().padStart(2, "0"));
         if (showHours)
           newData.push(myDate.getHours().toString().padStart(2, "0"));
         if (showMinutes)
