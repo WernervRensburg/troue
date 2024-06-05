@@ -29,7 +29,7 @@
     rsvpStage += 1;
 
     try {
-      const response = await fetch("http://wernervrensburg.pythonanywhere.com/guests/find_guest?format=json", {
+      const response = await fetch("https://wernervrensburg.pythonanywhere.com/guests/find_guest?format=json", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@
     rsvpStage += 1;
 
     try {
-      const response = await fetch("http://wernervrensburg.pythonanywhere.com/guests/save_response?format=json", {
+      const response = await fetch("https://wernervrensburg.pythonanywhere.com/guests/save_response?format=json", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
