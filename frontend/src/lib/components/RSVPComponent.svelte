@@ -1,4 +1,6 @@
 <script>
+  import { capitalizeName } from '../utils/displayName.js';
+  
   let rsvpStage = 0;
   let postData = {};
   let responseData = null;
