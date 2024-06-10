@@ -25,8 +25,10 @@
 
   let anyAttendance = false;
 
+  let loading = false;
+
   async function findInvite() {
-    rsvpStage += 1;
+    loading = true;
 
     try {
       const response = await fetch("https://wernervrensburg.pythonanywhere.com/guests/find_guest?format=json", {
@@ -57,6 +59,9 @@
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      loading = false;
+      rsvpStage += 1;
     }
   }
 
@@ -133,28 +138,37 @@
   }
 
   function capitalizeName(fullname) {
-  const exceptions = ['van', 'janse', 'der', 'de'];
-  
-  return fullname
-    .split(' ')
-    .map(part => {
-      if (part.length === 2) {
-        return part.toUpperCase();
-      } else if (exceptions.includes(part.toLowerCase())) {
-        return part.toLowerCase();
-      } else {
-        return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
-      }
-    })
-    .join(' ');
-}
+    const exceptions = ["van", "janse", "der", "de"];
 
+    return fullname
+      .split(" ")
+      .map((part) => {
+        if (part.length === 2) {
+          return part.toUpperCase();
+        } else if (exceptions.includes(part.toLowerCase())) {
+          return part.toLowerCase();
+        } else {
+          return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+        }
+      })
+      .join(" ");
+  }
 </script>
 
 <div class="rsvp-wrapper">
-  {#if rsvpStage === 0}
+  {#if loading}
+    <div class="loading-container">
+      <div class="loading-wave">
+        <div class="loading-bar"></div>
+        <div class="loading-bar"></div>
+        <div class="loading-bar"></div>
+        <div class="loading-bar"></div>
+      </div>
+    </div>
+  {:else if rsvpStage === 0}
     <div class="find-inv-wrapper">
-      <p class="rsvp-desc">Indien jy vir jou en 'n gas RSVP (of jou familie) sal jy kan RSVP vir die hele groep.</p><br /><br />
+      <p class="rsvp-desc">Indien jy vir jou en 'n gas RSVP (of jou familie) sal jy kan RSVP vir die hele groep.</p>
+      <br /><br />
 
       <p class="rsvp-desc">RSVP asseblief op die laatste teen 14 Augustus 2024.</p>
       <div class="form">
@@ -167,8 +181,8 @@
       {#if foundGuestStatus === 1}
         <span class="general-text">Die volgende uitnodigings is gevind</span>
         {#each guestData as guest}
-          <div class="guest-wrapper">
-            <span class="guest-name">{guest.fullname}</span>
+          <div class="guest-wrapper found-guests">
+            <span class="guest-name">{capitalizeName(guest.fullname)}</span>
           </div>
         {/each}
         <button class="find-invite-btn" on:click={increaseRsvpStage}>Volgende</button>
@@ -208,7 +222,7 @@
       {#each guestData as guest}
         {#if guest.attendance === 1}
           <div class="guest-wrapper">
-            <span class="guest-name">{guest.fullname}</span>
+            <span class="guest-name">{capitalizeName(guest.fullname)}</span>
             <div class="acc-list">
               <select
                 class="acc-select"
@@ -247,9 +261,7 @@
     </div>
   {:else if rsvpStage === 5}
     <div class="rsvp-done">
-      <span class="rsvp-d-desc"
-        >Ons sien uit om ons spesiale dag met julle te deel! <br /><br />
-      </span>
+      <span class="rsvp-d-desc">Ons sien uit om ons spesiale dag met julle te deel! <br /><br /> </span>
     </div>
   {:else if rsvpStage === -1}
     <div class="rsvp-done">
@@ -399,6 +411,12 @@
     user-select: none;
   }
 
+  .found-guests {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .form {
     display: flex;
     flex-direction: column;
@@ -469,6 +487,56 @@
     .email-desc,
     .rsvp-d-desc {
       font-size: 24px;
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    height: 250px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .loading-wave {
+    width: 300px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .loading-bar {
+    width: 20px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #ad925d;
+    border-radius: 5px;
+    animation: loading-wave-animation 1s ease-in-out infinite;
+  }
+
+  .loading-bar:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  .loading-bar:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+
+  .loading-bar:nth-child(4) {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes loading-wave-animation {
+    0% {
+      height: 10px;
+    }
+
+    50% {
+      height: 50px;
+    }
+
+    100% {
+      height: 10px;
     }
   }
 </style>
