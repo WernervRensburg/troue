@@ -1,6 +1,4 @@
 <script>
-  import { capitalizeName } from '../utils/displayName.js';
-  
   let rsvpStage = 0;
   let postData = {};
   let responseData = null;
@@ -133,6 +131,24 @@
     guestData = [...guestData];
     console.log(guestData);
   }
+
+  function capitalizeName(fullname) {
+  const exceptions = ['van', 'janse', 'der', 'de'];
+  
+  return fullname
+    .split(' ')
+    .map(part => {
+      if (part.length === 2) {
+        return part.toUpperCase();
+      } else if (exceptions.includes(part.toLowerCase())) {
+        return part.toLowerCase();
+      } else {
+        return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+      }
+    })
+    .join(' ');
+}
+
 </script>
 
 <div class="rsvp-wrapper">
@@ -168,7 +184,7 @@
       <span class="attendance-desc">Wie kom almal saam?</span>
       {#each guestData as guest}
         <div class="guest-wrapper">
-          <span class="guest-name">{guest.fullname}</span>
+          <span class="guest-name">{capitalizeName(guest.fullname)}</span>
           <div class="split-button">
             <button class:selected={guest.attendance === 1} on:click={() => handleGuestAttendance(guest.id, 1)}
               >Ja</button
