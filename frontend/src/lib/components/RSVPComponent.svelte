@@ -138,12 +138,12 @@
   }
 
   function capitalizeName(fullname) {
-    const exceptions = ["van", "janse", "der", "de"];
+    const exceptions = ["van", "janse", "de", "le"];
 
     return fullname
       .split(" ")
       .map((part) => {
-        if (part.length === 2) {
+        if (part.length === 2 && !exceptions.includes(part.toLowerCase())) {
           return part.toUpperCase();
         } else if (exceptions.includes(part.toLowerCase())) {
           return part.toLowerCase();
@@ -386,7 +386,7 @@
   }
 
   .split-button button:first-child {
-    border-right: 1px solid #ad925d; /* Creates the split effect */
+    border-right: 1px solid #ad925d;
   }
 
   .split-button button:hover {
@@ -509,7 +509,7 @@
     width: 20px;
     height: 10px;
     margin: 0 5px;
-    background-color: #ad925d;
+    background-color: rgba(173, 146, 93, 0.8);
     border-radius: 5px;
     animation: loading-wave-animation 1s ease-in-out infinite;
   }

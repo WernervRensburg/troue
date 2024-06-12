@@ -28,6 +28,7 @@
   });
 
   let myCustomDate = new Date();
+  updateCountdown();
 
   function updateCountdown() {
     const now = new Date();
@@ -185,7 +186,9 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
-      <p class="dress-p">Die seremonie begin Saterdag 04:00PM by die ou klip kerk, naby aan die hoof venue.</p>
+      <p class="dress-p">Die seremonie begin Saterdag 04:00PM by die ou klip kerk.<br /><br />
+        Gaste moet asseblief op die laatste 3:45PM sit.
+      </p>
     </div>
     <div class="dresscode">
       <span class="main-header venue-header">Kleredrag</span>
@@ -213,7 +216,7 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
-      <p class="reg-p">Daar sal 'n houer op die dag beskikbaar wees waarin koeverte geplaas kan word.</p>
+      <p class="reg-p">Indien enige gas voel hulle wil vir ons iets gee, sal daar 'n houer op die dag beskikbaar wees waarin koeverte geplaas kan word.</p>
     </div>
   </div>
 </div>
