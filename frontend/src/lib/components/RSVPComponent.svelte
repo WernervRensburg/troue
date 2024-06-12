@@ -10,7 +10,7 @@
   let name = "";
 
   $: findGuestData = {
-    name: name,
+    name: name.trim(),
   };
 
   let email = "";
