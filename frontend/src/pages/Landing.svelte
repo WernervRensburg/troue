@@ -6,7 +6,10 @@
   let showDetailsPage = false;
 
   function showDetails() {
-    showDetailsPage = !showDetailsPage;    
+    showDetailsPage = !showDetailsPage;
+    if (showDetailsPage) {
+      window.scrollTo({ top: 0, behavior: 'smooth'});
+    }
   }
 </script>
 {#if !showDetailsPage}
