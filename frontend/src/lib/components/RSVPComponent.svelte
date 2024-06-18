@@ -43,9 +43,14 @@
 
       if (responseStatus === 200) {
         responseData = await response.json();
+        
         console.log(responseData);
+
+        anyAttendance = responseData.some(guest => guest.attendance === 1);
+        
         guestData = responseData;
         foundGuestStatus = 1;
+
       } else if (responseStatus === 400) {
         responseData = await response.json();
         console.log(responseData.error);
@@ -54,7 +59,7 @@
         }
       } else if (responseStatus === 404) {
         foundGuestStatus = 0;
-      } else if (responeStatus === 500) {
+      } else if (responseStatus === 500) {
         foundGuestStatus = 3;
       }
     } catch (error) {
@@ -66,7 +71,8 @@
   }
 
   async function saveGuestResponse() {
-    rsvpStage += 1;
+
+    loading = true;
 
     try {
       const response = await fetch("https://wernervrensburg.pythonanywhere.com/guests/save_response?format=json", {
@@ -86,11 +92,18 @@
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      loading = false;
+      rsvpStage += 1;
     }
   }
 
   function increaseRsvpStage() {
-    if (rsvpStage === 2 && !anyAttendance) rsvpStage = -1;
+    if (rsvpStage === 2 && !anyAttendance) {
+      rsvpStage = -1;
+      saveGuestResponse();
+      resetRSVP();
+    }
     else rsvpStage += 1;
   }
 
