@@ -141,23 +141,36 @@
         <div class="vd-left"></div>
         <div class="vd-right"></div>
       </div>
-      <p class="acc-p">
+      <div class="acc-p">
         Die indeling van gaste in die glamping en stalle word deur ons <strong>alleenlik</strong> gedoen nadat die RSVPs
         gefinaliseer is - Dui aan in die RSVP hoeveel aande oorgebly gaan word .<br /><br />
 
-        Daar is 2 tipes akkommodasie beskikbaar op die venue, glamping of die stalle.<br /><br />
-
+        Daar is 3 tipes akkommodasie beskikbaar op die venue, glamping, die stalle, en dan 4 huise.<br />
+          <ul>
+            <li>
+              Daisy - gereserveer vir bruid en strooimeises.
+            </li>
+          <li>
+            Fiona - gereserveer vir bruidegom en strooijonkers.
+          </li>
+          <li>
+            The Homestead (20 gaste) - gereserveer vir Anja se naby familie.
+          </li>
+          <li>
+            The Views (12 gaste) - gereserveer vir Werner se familie.
+          </li>
+        </ul>
         Die stalle vat 3 persone per stal en die glamping vat 2 persone per tent.<br /><br />
 
-        Die kostes vir die stalle is R450pppn indien albei aande gebly word, andersins is dit R700pp vir 1 aand.<br
+        Die kostes vir die stalle en die huise is R450pp per nag indien albei aande gebly word, andersins is dit R700pp vir 1 aand.<br
         /><br />
 
-        Die kostes vir die glamping is R350pppn indien albei aande gebly word, andersins is dit R1000 per tent (R500pp).<br
+        Die kostes vir die glamping is R350pp per nag indien albei aande gebly word, andersins is dit R1000 per tent (R500pp).<br
         /><br />
 
         Die betaling van die verblyf word deur Louvain hanteer, Louvain stuur self n faktuur uit na die gaste wat oorbly
         nadat ons almal ingedeel het.<br /><br />
-      </p>
+      </div>
     </div>
     <div class="friday-event">
       <span class="main-header venue-header">Vrydagaand</span>
