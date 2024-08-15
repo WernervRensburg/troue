@@ -9,7 +9,7 @@
   let allowRSVP = true;
 
   const targetDate = new Date("2024-10-26T16:00:00");
-  const rsvpDate = new Date("2024-08-14T23:59:59");
+  const rsvpDate = new Date("2024-08-26T23:59:59");
 
   const checkDate = () => {
     const now = new Date();
